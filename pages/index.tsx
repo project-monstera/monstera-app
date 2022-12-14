@@ -8,12 +8,12 @@ const MapLeafLet = dynamic(() => import("../src/components/Map"), {
 
 const MapWrapper = () => {
   return (
-    <main>
+    <>
       <Head>
         <title>Home</title>
       </Head>
       {!!MapLeafLet ? <MapLeafLet /> : <div>Loading</div>}
-    </main>
+    </>
   )
 }
 

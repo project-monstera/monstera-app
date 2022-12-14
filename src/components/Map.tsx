@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import * as L from "leaflet"
 import { Payload } from "../../types/api/Payload"
-import { Response, ResponseOpenMeteo } from "../../types/api/Response"
+import { ResponseOpenMeteo } from "../../types/api/Response"
 import { SoilType } from "../../types/enums"
 
 const sendRequest = async (payload: Payload) => {
@@ -25,6 +25,7 @@ const sendRequest = async (payload: Payload) => {
 const MapLeafLet = () => {
   const $map = useRef<HTMLDivElement>(null)
   const map = useRef<L.Map | undefined>()
+  const markers = useRef<L.Marker[]>([])
   useEffect(() => {
     if (!$map.current) return
     if (map.current) return
@@ -37,13 +38,32 @@ const MapLeafLet = () => {
         Math.round(e.latlng.lat * 100) / 100,
         Math.round(e.latlng.lng * 100) / 100,
       ] as [number, number]
+      if (map.current) {
+        markers.current
+          .map((marker) => {
+            marker.remove()
+            return undefined
+          })
+          .filter((marker) => !!marker)
+        markers.current.push(
+          L.marker([e.latlng.lat, e.latlng.lng], {
+            icon: L.icon({
+              iconUrl: "/marker.svg",
+              iconRetinaUrl: "/marker.svg",
+              iconSize: [50, 50],
+              iconAnchor: [25, 25],
+              shadowUrl: "",
+              shadowRetinaUrl: "",
+            }),
+          }).addTo(map.current)
+        )
+      }
+      // const response = await sendRequest({
+      //   coordinates,
+      //   soil_type: SoilType.Clay,
+      // })
 
-      const response = await sendRequest({
-        coordinates,
-        soil_type: SoilType.Clay,
-      })
-
-      console.log(response)
+      // console.log(response)
     })
   }, [])
 

@@ -1,11 +1,14 @@
 {
   "parser": "@typescript-eslint/parser",
   "extends": [
+    "eslint:recommended",
+    "next",
     "next/core-web-vitals",
     "plugin:import/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
+  "plugins": ["@typescript-eslint"],
   "root": true,
   "rules": {
     "@typescript-eslint/consistent-type-imports": "warn",

@@ -1,16 +1,14 @@
 import React, { useEffect, useRef, useState } from "react"
 import * as L from "leaflet"
-import { Payload } from "../../types/api/Payload"
-import { ResponseOpenMeteo } from "../../types/api/Response"
+import type { Payload } from "../../types/api/Payload"
+import type { ResponseOpenMeteo } from "../../types/api/Response"
 import { SoilType } from "../../types/enums"
-import { handleClientScriptLoad } from "next/script"
+import Loader from "./Loader"
 
 const sendRequest = async (payload: Payload) => {
   const res = await fetch("/api/monstera", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   })
   const data = (await res.json()) as ResponseOpenMeteo
@@ -25,14 +23,24 @@ const sendRequest = async (payload: Payload) => {
 
 const MapLeafLet = () => {
   const [coordinates, setCoordinates] = useState<[number, number]>()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const $map = useRef<HTMLDivElement>(null)
   const map = useRef<L.Map | undefined>()
   const markers = useRef<L.Marker[]>([])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true)
     e.preventDefault()
+    if (!coordinates) return
+    const form = new FormData(e.target as HTMLFormElement)
+    const formData = Object.fromEntries(form)
+    const res = await sendRequest({
+      coordinates,
+      soil_type: formData["soil-type"] as SoilType,
+    })
+    console.log(res)
+    setIsLoading(false)
   }
-
   const clearMapMarkers = () => {
     if (!map.current) return
     markers.current
@@ -42,6 +50,7 @@ const MapLeafLet = () => {
       })
       .filter((marker) => !!marker)
   }
+
   useEffect(() => {
     if (!$map.current) return
     if (map.current) return
@@ -53,11 +62,8 @@ const MapLeafLet = () => {
       map.current
     )
     map.current.on("click", async (e) => {
-      setCoordinates(() => [
-        Math.round(e.latlng.lat * 100) / 100,
-        Math.round(e.latlng.lng * 100) / 100,
-      ])
       if (!map?.current) return
+      setCoordinates(() => [e.latlng.lat, e.latlng.lng])
       clearMapMarkers()
       markers.current.push(
         L.marker([e.latlng.lat, e.latlng.lng], {
@@ -71,14 +77,10 @@ const MapLeafLet = () => {
           }),
         }).addTo(map.current)
       )
-
-      // const response = await sendRequest({
-      //   coordinates,
-      //   soil_type: SoilType.Clay,
-      // })
-
-      // console.log(response)
     })
+    return () => {
+      map.current?.remove()
+    }
   }, [])
 
   return (
@@ -92,14 +94,17 @@ const MapLeafLet = () => {
           <label className="text-sm text-gray-500 mb-1" htmlFor="soil-type">
             Type de sol
           </label>
-          <select className="rounded-md border border-gray-300 p-1 pr-2">
+          <select
+            name="soil-type"
+            className="rounded-md border border-gray-300 p-1 pr-2"
+          >
             <option value={SoilType.Clay}>Argile</option>
             <option value={SoilType.Chalky}>Cailloux</option>
             <option value={SoilType.Sandy}>Sableux</option>
             <option value={SoilType.Silt}>Limoneux</option>
           </select>
         </div>
-        <div className="flex justify-start gap-4">
+        <div className="flex flex-col justify-start gap-4">
           <div>
             <span className="text-sm text-gray-500">Lat</span>{" "}
             {coordinates?.[0]}
@@ -109,6 +114,14 @@ const MapLeafLet = () => {
             {coordinates?.[1]}
           </div>
         </div>
+        <button
+          className="w-full text-white font-semibold bg-green-500 p-2 rounded-md"
+          type="submit"
+        >
+          <span className="flex justify-center items-center">
+            {isLoading ? <Loader /> : "Ask the AI"}
+          </span>
+        </button>
       </form>
     </>
   )

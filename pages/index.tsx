@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css"
 import Head from "next/head"
 
 const MapLeafLet = dynamic(() => import("../src/components/Map"), {
-  ssr: false,
+  ssr: false
 })
 
 const MapWrapper = () => {
@@ -12,7 +12,7 @@ const MapWrapper = () => {
       <Head>
         <title>Home</title>
       </Head>
-      {!!MapLeafLet ? <MapLeafLet /> : <div>Loading</div>}
+      {MapLeafLet ? <MapLeafLet /> : <div>Loading</div>}
     </>
   )
 }

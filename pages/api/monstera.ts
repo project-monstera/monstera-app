@@ -1,6 +1,7 @@
 import axios from "axios"
 import type { NextApiRequest, NextApiResponse } from "next"
-import { Response, ResponseOpenMeteo } from "../../types/api/Response"
+import type { ResponseOpenMeteo } from "../../types/api/Response";
+import { Response } from "../../types/api/Response"
 
 const handler = async (
   req: NextApiRequest,
@@ -30,12 +31,12 @@ const handler = async (
     end_date: endDate.toISOString().split("T")[0],
     hourly:
       "temperature_2m,precipitation,rain,snowfall,cloudcover,windspeed_10m,soil_temperature_0_to_7cm",
-    timeformat: "unixtime",
+    timeformat: "unixtime"
   }
 
   const responseWeatherApi = await axios
     .get<ResponseOpenMeteo>("https://archive-api.open-meteo.com/v1/era5", {
-      params,
+      params
     })
     .catch((err) => console.warn(err.response))
 

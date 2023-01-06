@@ -1,13 +1,13 @@
 import { FoodType, Season, SoilType } from "../enums"
 
 export type ResponseOpenMeteo = {
-  latitude: 25
-  longitude: 25
-  generationtime_ms: 1.8750429153442383
+  latitude: number
+  longitude: number
+  generationtime_ms: number
   utc_offset_seconds: 0
   timezone: "GMT"
   timezone_abbreviation: "GMT"
-  elevation: 510
+  elevation: number
   hourly_units: {
     time: "unixtime"
     temperature_2m: "°C"
@@ -28,6 +28,15 @@ export type ResponseOpenMeteo = {
     windspeed_10m: number[]
     soil_temperature_0_to_7cm: number[]
   }
+}
+
+export type RequestOpenMeteo = {
+  latitude: number
+  longitude: number
+  start_date: string
+  end_date: string
+  hourly: string
+  timeformat: string
 }
 
 export type Response = {

@@ -1,8 +1,7 @@
 {
   "parser": "@typescript-eslint/parser",
   "extends": [
-    "eslint:recommended",
-    "next",
+    // "next",
     "next/core-web-vitals",
     "plugin:import/recommended",
     "plugin:@typescript-eslint/recommended",
@@ -12,6 +11,7 @@
   "root": true,
   "rules": {
     "@typescript-eslint/consistent-type-imports": "warn",
+    "prefer": "no-type-imports",
     "prefer-const": "error",
     "space-before-function-paren": [
       "error",

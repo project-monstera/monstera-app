@@ -1,7 +1,11 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import type { NextApiRequest, NextApiResponse } from "next"
-import type { ResponseOpenMeteo } from "../../types/api/Response";
+import type {
+  RequestOpenMeteo,
+  ResponseOpenMeteo
+} from "../../types/api/Response"
 import { Response } from "../../types/api/Response"
+import { averageValueFromList } from "../../utils/processing"
 
 const handler = async (
   req: NextApiRequest,
@@ -14,15 +18,6 @@ const handler = async (
   const endDate = new Date()
   const startDate = new Date()
   startDate.setFullYear(endDate.getFullYear() - 1)
-  // const centerPosition = turf.center(
-  //   turf.points([
-  //     [30.0, 10.0],
-  //     [40.0, 40.0],
-  //     [20.0, 40.0],
-  //     [10.0, 20.0],
-  //     [30.0, 10.0],
-  //   ])
-  // )
 
   const params = {
     latitude: coordinates[0],
@@ -35,20 +30,24 @@ const handler = async (
   }
 
   const responseWeatherApi = await axios
-    .get<ResponseOpenMeteo>("https://archive-api.open-meteo.com/v1/era5", {
-      params
-    })
+    .get<ResponseOpenMeteo, AxiosResponse<ResponseOpenMeteo>, RequestOpenMeteo>(
+      "https://archive-api.open-meteo.com/v1/era5",
+      {
+        params
+      }
+    )
     .catch((err) => console.warn(err.response))
 
   if (!responseWeatherApi?.data) {
     return res.status(500).json({ error: "No data from weather API" })
   }
 
-  // const api = await fetch(
-  //   "https://archive-api.open-meteo.com/v1/era5?latitude=52.52&longitude=13.41&start_date=2021-12-02&end_date=2022-12-02&hourly=temperature_2m,precipitation,rain,windspeed_10m,soil_temperature_0_to_7cm&daily=temperature_2m_max,temperature_2m_min&timezone=auto&timeformat=unixtime"
-  // )
-  // const data = await api.json()
-  // console.log(data)
+  const averageTemperature = averageValueFromList(
+    responseWeatherApi.data.hourly.temperature_2m
+  )
+  const averagePrecipitation = averageValueFromList(
+    responseWeatherApi.data.hourly.precipitation
+  )
 
   switch (method) {
     case "POST":

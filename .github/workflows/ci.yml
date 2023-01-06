@@ -1,9 +1,6 @@
 name: Tests
 on:
-  push:
-    branches-ignore:
-      - "develop"
-      - "master"
+  push
 jobs:
   base:
     name: 📦 Base

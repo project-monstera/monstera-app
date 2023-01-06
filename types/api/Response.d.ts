@@ -17,8 +17,10 @@ export type ResponseOpenMeteo = {
     cloudcover: "%"
     windspeed_10m: "km/h"
     soil_temperature_0_to_7cm: "°C"
+    soil_moisture_0_to_7cm: "m³/m³"
   }
   hourly: {
+    soil_moisture_0_to_7cm: number[]
     time: number[]
     temperature_2m: number[]
     precipitation: number[]

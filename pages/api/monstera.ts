@@ -1,3 +1,4 @@
+import mysql from "mysql2"
 import axios, { AxiosResponse } from "axios"
 import type { NextApiRequest, NextApiResponse } from "next"
 import type {
@@ -6,6 +7,25 @@ import type {
 } from "../../types/api/Response"
 import { Response } from "../../types/api/Response"
 import { averageValueFromList } from "../../utils/processing"
+
+// create the connection to database
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD
+})
+
+// simple query
+connection.query(
+  "SELECT * FROM `hortipediadata` LIMIT 1",
+  function (err, results, fields) {
+    console.log({ err })
+
+    console.log({ results }) // results contains rows returned by server
+    console.log({ fields }) // fields contains extra meta data about results, if available
+  }
+)
 
 const handler = async (
   req: NextApiRequest,
@@ -25,7 +45,7 @@ const handler = async (
     start_date: startDate.toISOString().split("T")[0],
     end_date: endDate.toISOString().split("T")[0],
     hourly:
-      "temperature_2m,precipitation,rain,snowfall,cloudcover,windspeed_10m,soil_temperature_0_to_7cm",
+      "temperature_2m,precipitation,rain,snowfall,cloudcover,windspeed_10m,soil_temperature_0_to_7cm,soil_moisture_0_to_7cm",
     timeformat: "unixtime"
   }
 

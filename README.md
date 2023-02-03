@@ -1,5 +1,5 @@
 <a href="https://aimeos.org/">
-    <img src="https://avatars.githubusercontent.com/u/116264644?s=200&v=4" alt="Monstera logo" title="Monstera" align="right" height="40" />
+    <img src="https://avatars.githubusercontent.com/u/116264644?s=200&v=4" alt="Monstera logo" title="Monstera" align="right" height="50" />
 </a>
 
 # Project Monstera
@@ -41,6 +41,7 @@ yarn install
 We use a [MySQL](https://www.mysql.com) database for our project.
 
 - [MySQL](https://www.mysql.com) on Cloud (recommended)
+- [MySQL](https://www.mysql.com) on your computer with the [SQL dump file](/db_hortipedia.sql)
 
 ## License
 

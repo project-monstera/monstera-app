@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import * as L from "leaflet"
-import type { Payload } from "../../types/api/Payload"
-import type { ResponseOpenMeteo, SoilTypeList } from "../../types/api/Response"
+import type { Payload } from "../types/api/Payload"
+import type { ResponseOpenMeteo, SoilTypeList } from "../types/api/Response"
 import Loader from "./Loader"
 
 const sendRequest = async (payload: Payload) => {

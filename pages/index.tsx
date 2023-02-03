@@ -2,7 +2,7 @@ import dynamic from "next/dynamic"
 import "leaflet/dist/leaflet.css"
 import Head from "next/head"
 
-const MapLeafLet = dynamic(() => import("../src/components/Map"), {
+const MapLeafLet = dynamic(() => import("../components/Map"), {
   ssr: false
 })
 

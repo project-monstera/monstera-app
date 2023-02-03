@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<a href="https://aimeos.org/">
+    <img src="https://avatars.githubusercontent.com/u/116264644?s=200&v=4" alt="Monstera logo" title="Monstera" align="right" height="40" />
+</a>
 
-## Getting Started
+# Project Monstera
 
-First, run the development server:
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/project-monstera/monstera-app/ci.yml)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/project-monstera/monstera-app)
+![GitHub](https://img.shields.io/github/license/project-monstera/monstera-app)
+![GitHub Repo stars](https://img.shields.io/github/stars/project-monstera/monstera-app)
+
+**[Project Monstera](/) is a POC from 4 french students.**<br/>
+The objective is to propose a solution for the vegetation of exteriors and interiors. A certain number of advices and suggestions of plants that can live in the same ecosystem will be proposed to the user.
+
+## Table Of Content
+
+- [Installation](#installation)
+  - [Deps](#dependencies)
+  - [Database setup](#database-setup)
+- [License](#license)
+
+## Installation
+
+We use [NextJs](https://nextjs.org) as a framework for our frontend and NextJs also for our API.
+
+- [NextJs](https://nextjs.org) version 13 or later
+- [React](https://reactjs.org) version 18 or later
+- [NodeJs](https://nodejs.org) version 16 or later
+
+### Dependencies
+
+Install the dependencies with yarn or npm
 
 ```bash
-npm run dev
-# or
-yarn dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Database setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+We use a [MySQL](https://www.mysql.com) database for our project.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- [MySQL](https://www.mysql.com) on Cloud (recommended)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## License
 
-## Learn More
+The MIT License is a permissive free software license originating at the Massachusetts Institute of Technology (MIT) in the late 1980s. As a permissive license, it puts only very limited restriction on reuse and has, therefore, high license compatibility. [More informations](https://en.wikipedia.org/wiki/MIT_License)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+License and is available for free.

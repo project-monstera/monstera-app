@@ -1,4 +1,6 @@
-import { FoodType, Season, SoilType } from "../enums"
+export type SeasonList = "spring" | "summer" | "fall" | "winter"
+export type SoilTypeList = "clay" | "sandy" | "silt" | "loams" | "chalky"
+export type FoodTypeList = "vegetable" | "fruit" | "flower"
 
 export type ResponseOpenMeteo = {
   latitude: number
@@ -44,15 +46,15 @@ export type RequestOpenMeteo = {
 export type Response = {
   climate_type?: number // Récupérer depuis Hortipedia
   garden: {
-    month: Season
+    month: SeasonList
     plants: {
       compatibily_rank?: number // De 0 à 100
       maintenance_rank?: number // De 0 à 100
       name?: string
-      preferred_soil_types?: SoilType[]
+      preferred_soil_types?: SoilTypeList[]
       description?: string
       is_eatable?: boolean
-      food_type?: FoodType
+      food_type?: FoodTypeList
       height?: string
       plant_type?: string[]
       temperature_zone?: number // Récupérer depuis Hortipedia

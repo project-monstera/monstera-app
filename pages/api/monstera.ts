@@ -52,9 +52,7 @@ const handler = async (
   const responseWeatherApi = await axios
     .get<ResponseOpenMeteo, AxiosResponse<ResponseOpenMeteo>, RequestOpenMeteo>(
       "https://archive-api.open-meteo.com/v1/era5",
-      {
-        params
-      }
+      { params }
     )
     .catch((err) => console.warn(err.response))
 

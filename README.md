@@ -11,6 +11,7 @@
 
 **[Project Monstera](/) is a POC from 4 french students.**<br/>
 The objective is to propose a solution for the vegetation of exteriors and interiors. A certain number of advices and suggestions of plants that can live in the same ecosystem will be proposed to the user.
+We using a database of plants scrapped from the [Hortipedia](https://hortipedia.com/) website.
 
 ## Table Of Content
 
